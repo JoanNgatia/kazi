@@ -7,7 +7,7 @@ from django.db import models
 class Employer(models.Model):
     """Define Employer attributes."""
 
-    name = models.CharField(max_length=255, blank=False)
+    name = models.CharField(max_length=255)
 
 
 class Employee(models.Model):

@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.core.urlresolvers import reverse
 from django.test import TestCase
+from rest_framework.test import APIClient, APITestCase
 
 from models import Employer, Employee
 # Create your tests here.
@@ -12,10 +14,9 @@ class ModelTestCase(TestCase):
     """Define correct model creation."""
 
     def setUp(self):
+        """Add initial data."""
         self.name = 'J'
-        self.name2 = 'employe223'
         self.new_employer = Employer(name=self.name)
-        self.new_employee = Employee(name=self.name2, employer=self.new_employer)
 
     def test_new_model_creation(self):
         """Check new model instantiation."""
@@ -24,3 +25,26 @@ class ModelTestCase(TestCase):
         self.new_employer.save()
         new_count = Employer.objects.count()
         self.assertNotEqual(initial_count, new_count)
+
+        self.name2 = 'employe223'
+        self.new_employee = Employee(
+            name=self.name2, employer=self.new_employer)
+        self.new_employee.save()
+        self.assertEqual(len(Employee.objects.all()), 1)
+
+
+class ViewsTestCase(APITestCase):
+    """Test Views to handle CRUD methods."""
+
+    def setUp(self):
+        """Add initial data."""
+        self.client = APIClient()
+        self.name = 'Employee1'
+        self.name2 = 'Employer1'
+        self.employer_data = {'name': self.name2}
+
+    def test_new_employer_creation(self):
+        """Create view test."""
+        self.response = self.client.post(
+            reverse('all_employers'), self.employer_data, format='json')
+        self.assertEqual(self.response.status_code, 201)
