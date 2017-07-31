@@ -72,11 +72,14 @@ class ViewsTestCase(APITestCase):
         self.assertEqual(self.response.status_code, 200)
         self.assertEqual(len(Employee.objects.all()), 1)
 
-        self.response = self.client.get(
-            reverse('single_employee', kwargs={'employer_id': 1, 'pk': 1}))
-        self.assertEqual(self.response.status_code, 200)
-        self.assertIn(self.response.data['name'], 'Employee1')
+        # Test that a new employee can be added
+        self.response = self.client.post(
+            reverse('all_employees', kwargs={'employer_id': self.employer.id}),
+            {'name': 'MAdtraxx!!', 'employer': self.employer.id})
+        self.assertEqual(self.response.status_code, 201)
+        self.assertEqual(Employee.objects.count(), 2)
 
-        self.response = self.client.put(
-            reverse('single_employee', kwargs={'employer_id': 1, 'pk': 1}), {'name': 'New Employee'})
+        # Test that employee info may be edited
+        self.response = self.client.put(reverse('single_employee', kwargs={
+                                         'employer_id': self.employee.id, 'pk': self.employee.id}), {'name': 'Ashley', 'employer': self.employer.id})
         self.assertEqual(self.response.status_code, 200)

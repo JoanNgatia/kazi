@@ -7,3 +7,7 @@ To run the system:
 ```cd kaziapp```
 
 ```python manage.py runserver```
+
+To run the tests:
+
+```python manage.py test```
