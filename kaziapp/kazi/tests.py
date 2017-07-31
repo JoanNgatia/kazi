@@ -81,5 +81,8 @@ class ViewsTestCase(APITestCase):
 
         # Test that employee info may be edited
         self.response = self.client.put(reverse('single_employee', kwargs={
-                                         'employer_id': self.employee.id, 'pk': self.employee.id}), {'name': 'Ashley', 'employer': self.employer.id})
+                                        'employer_id': self.employee.id,
+                                        'pk': self.employee.id}),
+                                        {'name': 'Ashley',
+                                        'employer': self.employer.id})
         self.assertEqual(self.response.status_code, 200)
