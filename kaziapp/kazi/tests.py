@@ -48,41 +48,42 @@ class ViewsTestCase(APITestCase):
     def test_new_employer_crud_methods(self):
         """Create, read, update test."""
         # test create
-        self.response = self.client.post(
+        response = self.client.post(
             reverse('all_employers'), self.new_employer_data, format='json')
-        self.assertEqual(self.response.status_code, 201)
+        self.assertEqual(response.status_code, 201)
         self.assertEqual(len(Employer.objects.all()), 2)
 
         # test one employer retrieve
-        self.response = self.client.get(
+        response = self.client.get(
             reverse('single_employer', kwargs={'pk': '1'}))
-        self.assertEqual(self.response.status_code, 200)
-        self.assertIn('Andela', self.response.data['name'])
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Andela', response.data['name'])
 
         # test one employer update
-        self.response = self.client.put(reverse('single_employer', kwargs={
-                                        'pk': '1'}), {'name': 'New Employer'})
-        self.assertEqual(self.response.status_code, 200)
-        self.assertIn('New Employer', self.response.data['name'])
+        response = self.client.put(reverse('single_employer',
+                                   kwargs={'pk': '1'}),
+                                   {'name': 'New Employer'})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('New Employer', response.data['name'])
 
     def test_new_employee_crud_methods(self):
         """Create read update delete employees."""
-        self.response = self.client.get(
+        response = self.client.get(
             reverse('all_employees', kwargs={'employer_id': self.employee.id}))
-        self.assertEqual(self.response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(len(Employee.objects.all()), 1)
 
         # Test that a new employee can be added
-        self.response = self.client.post(
+        response = self.client.post(
             reverse('all_employees', kwargs={'employer_id': self.employer.id}),
             {'name': 'MAdtraxx!!', 'employer': self.employer.id})
-        self.assertEqual(self.response.status_code, 201)
+        self.assertEqual(response.status_code, 201)
         self.assertEqual(Employee.objects.count(), 2)
 
         # Test that employee info may be edited
-        self.response = self.client.put(reverse('single_employee', kwargs={
-                                        'employer_id': self.employee.id,
-                                        'pk': self.employee.id}),
-                                        {'name': 'Ashley',
-                                        'employer': self.employer.id})
-        self.assertEqual(self.response.status_code, 200)
+        response = self.client.put(reverse('single_employee',
+                                   kwargs={'employer_id': self.employee.id,
+                                           'pk': self.employee.id}),
+                                   {'name': 'Ashley',
+                                   'employer': self.employer.id})
+        self.assertEqual(response.status_code, 200)
