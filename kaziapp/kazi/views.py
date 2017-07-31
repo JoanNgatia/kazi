@@ -10,6 +10,12 @@ from serializers import EmployerSerializer
 class EmployersView(generics.ListCreateAPIView):
     """Add and view all employers."""
 
-    model = Employer
     serializer_class = EmployerSerializer
-    queryset = Employer.objects.all
+    queryset = Employer.objects.all()
+
+
+class EmployersDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """View, update or delete single employer."""
+
+    serializer_class = EmployerSerializer
+    queryset = Employer.objects.all()

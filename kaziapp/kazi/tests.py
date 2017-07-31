@@ -43,8 +43,15 @@ class ViewsTestCase(APITestCase):
         self.name2 = 'Employer1'
         self.employer_data = {'name': self.name2}
 
-    def test_new_employer_creation(self):
-        """Create view test."""
+    def test_new_employer_crud_methods(self):
+        """Create, read, update test."""
+        # test create
         self.response = self.client.post(
             reverse('all_employers'), self.employer_data, format='json')
         self.assertEqual(self.response.status_code, 201)
+        self.assertEqual(len(Employer.objects.all()), 1)
+
+        self.response = self.client.get(
+            reverse('single_employer', kwargs={'pk': '1'}))
+        self.assertEqual(self.response.status_code, 200)
+        self.assertIn('Employer1', self.response.data['name'])

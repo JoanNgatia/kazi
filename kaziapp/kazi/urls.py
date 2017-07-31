@@ -4,6 +4,8 @@ import views
 
 urlpatterns = {
     url(r'^employers/$', views.EmployersView.as_view(), name='all_employers'),
+    url(r'^employers/(?P<pk>[0-9]+)/$',
+        views.EmployersDetailView.as_view(), name='single_employer'),
 }
 
 urlpatterns = format_suffix_patterns(urlpatterns)
