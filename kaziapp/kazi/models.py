@@ -9,10 +9,18 @@ class Employer(models.Model):
 
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        """String representation on console."""
+        return self.name
+
 
 class Employee(models.Model):
     """Define employee attributes."""
 
     name = models.CharField(max_length=255, blank=False)
     email = models.EmailField(blank=True)
-    employer = models.ForeignKey(Employer, on_delete=models.CASCADE)
+    employer = models.ForeignKey(Employer, related_name='employees', on_delete=models.CASCADE)
+
+    def __str__(self):
+        """String representation on console."""
+        return self.name

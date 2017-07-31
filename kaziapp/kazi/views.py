@@ -29,3 +29,13 @@ class EmployeesView(generics.ListCreateAPIView):
     def get_queryset(self):
         pk = self.kwargs.get('employer_id')
         return Employee.objects.filter(employer=pk)
+
+
+class EmployeeDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Single employee Retrieve update and delete."""
+
+    serializer_class = EmployeeSerializer
+
+    def get_queryset(self):
+        employer_id = self.kwargs.get('employer_id')
+        return Employee.objects.filter(employer=employer_id)

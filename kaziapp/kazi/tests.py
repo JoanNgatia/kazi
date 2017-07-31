@@ -39,7 +39,6 @@ class ViewsTestCase(APITestCase):
     def setUp(self):
         """Add initial data."""
         self.client = APIClient()
-        self.name = 'Employee1'
         self.name2 = 'Employer1'
         self.employer = Employer.objects.create(name='Andela')
         self.new_employer_data = {'name': self.name2}
@@ -73,29 +72,11 @@ class ViewsTestCase(APITestCase):
         self.assertEqual(self.response.status_code, 200)
         self.assertEqual(len(Employee.objects.all()), 1)
 
-        self.response = self.client.post(
-            reverse('all_employees', kwargs={'employer_id': self.employer.id}),
-            {'name': 'Ashley!'})
-        # self.assertEqual(response.status_code, 201)
-        self.assertEqual(Employee.objects.count(), 2)
+        self.response = self.client.get(
+            reverse('single_employee', kwargs={'employer_id': 1, 'pk': 1}))
+        self.assertEqual(self.response.status_code, 200)
+        self.assertIn(self.response.data['name'], 'Employee1')
 
-    #     # unsuccessful item creation
-    #     response = self.client.post(
-    #         reverse('bucketlistitems_get', kwargs={'pk': self.bucketlist.id}),
-    #         {'name': ''})
-    #     self.assertEqual(response.status_code, 302)
-    #     self.assertEqual(Bucketlistitem.objects.count(), 6)
-
-    # def test_edition_of_bucketlistitems(self):
-    #     """Test that a user can change the name of a bucketlist item."""
-    #     response = self.client.post(
-    #         reverse('bucketlistitems_update',
-    #                 kwargs={'pk': self.bucketlistitem.id,
-    #                         'bucketlist': self.bucketlist.id}),
-    #         {'name': 'MAdtraxx!!'})
-    #     self.assertEqual(response.status_code, 302)
-    #     self.assertEqual(Bucketlistitem.objects.count(), 5)
-    #     self.assertEqual(
-    #         Bucketlistitem.objects.get(id=self.bucketlistitem.id).name,
-    #         'MAdtraxx!!')
-
+        self.response = self.client.put(
+            reverse('single_employee', kwargs={'employer_id': 1, 'pk': 1}), {'name': 'New Employee'})
+        self.assertEqual(self.response.status_code, 200)
