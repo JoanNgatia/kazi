@@ -6,6 +6,8 @@ urlpatterns = {
     url(r'^employers/$', views.EmployersView.as_view(), name='all_employers'),
     url(r'^employers/(?P<pk>[0-9]+)/$',
         views.EmployersDetailView.as_view(), name='single_employer'),
+    url(r'^employers/(?P<employer_id>[0-9]+)/employees/$',
+        views.EmployeesView.as_view(), name='all_employees'),
 }
 
 urlpatterns = format_suffix_patterns(urlpatterns)
