@@ -18,7 +18,7 @@ To run the system locally:
 5. Spin up server
 ```cd kaziapp```
 
-```python mana.py runserver --settings=kaziapp.settings.local```
+```python manage.py runserver --settings=kaziapp.settings.local```
 
 To run the tests:
 
