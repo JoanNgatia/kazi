@@ -13,10 +13,12 @@ To run the system locally:
 
 ```pip install -r requirements.txt```
 
-4. Spin up server
+4. Set up local settings by adding `local.py` file in the settings folder with your secret key value.
+
+5. Spin up server
 ```cd kaziapp```
 
-```python manage.py runserver```
+```python mana.py runserver --settings=kaziapp.settings.local```
 
 To run the tests:
 
