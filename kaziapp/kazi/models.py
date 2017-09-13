@@ -10,7 +10,6 @@ class Employer(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        """String representation on console."""
         return self.name
 
 
@@ -22,5 +21,4 @@ class Employee(models.Model):
     employer = models.ForeignKey(Employer, related_name='employees', on_delete=models.CASCADE)
 
     def __str__(self):
-        """String representation on console."""
         return self.name

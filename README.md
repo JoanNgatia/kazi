@@ -7,10 +7,11 @@ To run the system locally:
 
 2. Create a virtual environment
 
-```mkvirtualenv <virtualenvname> ```
+```mkvirtualenv <virtualenvname>```
 
 3. Install dependencies within virtualenv 
-``` pip install -r requirements.txt ```
+
+```pip install -r requirements.txt```
 
 4. Spin up server
 ```cd kaziapp```

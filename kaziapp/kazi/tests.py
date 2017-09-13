@@ -6,8 +6,6 @@ from django.test import TestCase
 from rest_framework.test import APIClient, APITestCase
 
 from models import Employer, Employee
-# Create your tests here.
-# test model creation
 
 
 class ModelTestCase(TestCase):
