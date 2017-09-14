@@ -23,3 +23,13 @@ To run the system locally:
 To run the tests:
 
 ```python manage.py test```
+
+
+Available endpoints
+
+| URL Endpoint | What it does                                       |
+|--------------|----------------------------------------------------|
+| /employers   | Creates new employer info, Retrieves all employers |
+| /employees   | Creates new employee info, Retrieves all employees |
+| /employers/employer_id/ | Updates, Deletes single employer info              |
+| /employees/employee_id/ | Updates, Deletes single employee info              |
