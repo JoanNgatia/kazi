@@ -47,19 +47,17 @@ class ViewsTestCase(APITestCase):
         """Create, read, update test."""
         # test create
         response = self.client.post(
-            reverse('all_employers'), self.new_employer_data, format='json')
+            '/employers', self.new_employer_data, format='json')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(len(Employer.objects.all()), 2)
 
         # test one employer retrieve
-        response = self.client.get(
-            reverse('single_employer', kwargs={'pk': '1'}))
+        response = self.client.get('/employers/1/')
         self.assertEqual(response.status_code, 200)
         self.assertIn('Andela', response.data['name'])
 
         # test one employer update
-        response = self.client.put(reverse('single_employer',
-                                   kwargs={'pk': '1'}),
+        response = self.client.put('/employers/1/',
                                    {'name': 'New Employer'})
         self.assertEqual(response.status_code, 200)
         self.assertIn('New Employer', response.data['name'])

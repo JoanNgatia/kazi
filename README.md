@@ -26,9 +26,10 @@ To run the tests:
 
 
 Available endpoints
-URL Endpoint | What it does
--------------.-------------
-/employers | Creates new employer info, Retrieves all employers 
-/employees | Creates new employee info, Retrieves all employees
-/employers/<employer_id>/ | Updates, Deletes single employer info
-/employees/<employee_id>/ | Updates, Deletes single employee info
+
+| URL Endpoint | What it does                                       |
+|--------------|----------------------------------------------------|
+| /employers   | Creates new employer info, Retrieves all employers |
+| /employees   | Creates new employee info, Retrieves all employees |
+| /employers/employer_id/ | Updates, Deletes single employer info              |
+| /employees/employee_id/ | Updates, Deletes single employee info              |
